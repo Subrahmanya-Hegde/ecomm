@@ -1,0 +1,20 @@
+spring:
+  webflux:
+    hiddenmethod:
+      filter:
+        enabled: true
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: ecomm
+
+chaos:
+  monkey:
+    enabled: true
+    watcher:
+      controller: true
+      restController: true
+      service: true
+      repository: true
+      component: true
