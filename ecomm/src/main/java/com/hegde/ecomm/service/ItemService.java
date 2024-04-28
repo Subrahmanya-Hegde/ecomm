@@ -8,6 +8,6 @@ import reactor.core.publisher.Mono;
 public interface ItemService {
 
     Mono<Item> addItem(ItemRequest itemRequest);
-    Flux<Item> getItems();
 
+    Flux<Item> searchItem(String name);
 }

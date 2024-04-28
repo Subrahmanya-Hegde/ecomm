@@ -19,4 +19,7 @@ public class Item {
         this.price = price;
     }
 
+    public Item(String name) {
+        this.name = name;
+    }
 }

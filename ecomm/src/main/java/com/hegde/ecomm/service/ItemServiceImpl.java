@@ -5,9 +5,13 @@ import com.hegde.ecomm.json.ItemRequest;
 import com.hegde.ecomm.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+
+import java.util.Objects;
 
 
 @Service
@@ -25,7 +29,16 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public Flux<Item> getItems() {
-        return itemRepository.findAll();
+    public Flux<Item> searchItem(String name) {
+        if(Objects.isNull(name))
+            return itemRepository.findAll();
+
+        Item item = new Item(name);
+        ExampleMatcher exampleMatcher = ExampleMatcher.matchingAll()
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING)
+                .withIgnoreCase()
+                .withIgnorePaths("price");
+        Example<Item> itemExample = Example.of(item, exampleMatcher);
+        return itemRepository.findAll(itemExample);
     }
 }

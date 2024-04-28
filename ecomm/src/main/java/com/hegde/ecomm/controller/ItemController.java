@@ -23,7 +23,7 @@ public class ItemController {
     }
 
     @GetMapping
-    public Flux<Item> getItems(){
-        return itemService.getItems();
+    public Flux<Item> searchItems(@RequestParam(value = "name", required = false) String name){
+        return itemService.searchItem(name);
     }
 }
